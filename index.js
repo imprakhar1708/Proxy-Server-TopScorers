@@ -58,16 +58,16 @@ fetchDataTSPL();
 fetchDataTSCL();
 fetchDataTSBL();
 fetchDataTSLL();
-app.get("topsc/39", async (req, res) => {
+app.get("/topsc/39", async (req, res) => {
 	res.json(dataTSPL);
 });
-app.get("topsc/2", async (req, res) => {
+app.get("/topsc/2", async (req, res) => {
 	res.json(dataTSCL);
 });
-app.get("topsc/140", async (req, res) => {
+app.get("/topsc/140", async (req, res) => {
 	res.json(dataTSLL);
 });
-app.get("topsc/78", async (req, res) => {
+app.get("/topsc/78", async (req, res) => {
 	res.json(dataTSBL);
 });
 
