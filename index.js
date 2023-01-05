@@ -8,7 +8,7 @@ const fetch = (...args) =>
 var requestOptions = {
 	method: "GET",
 	headers: {
-		"x-rapidapi-key": "8ea474ed8d5e143a9b74941ea336b09e",
+		"x-rapidapi-key": "2eeafea8379edba2af77907f4010b282",
 		"x-rapidapi-host": "v3.football.api-sports.io",
 	},
 	redirect: "follow",
@@ -16,45 +16,58 @@ var requestOptions = {
 app.use(
 	cors({
 		Credentials: true,
-		origin: ["http://localhost:3000/"],
+		origin: ["http://localhost:3000"],
 	})
 );
 app.listen(port);
 
-/****************************STANDINGS***************************/
-let dataSDPL;
-let dataSDBL;
-let dataSDLL;
-const fetchDataSDPL = async () => {
+/********************************TOPSCORERS******************************/
+let dataTSPL;
+let dataTSBL;
+let dataTSCL;
+let dataTSLL;
+const fetchDataTSPL = async () => {
 	const r = await fetch(
-		`https://v3.football.api-sports.io/standings?league=39&season=2022`,
+		`https://v3.football.api-sports.io/players/topscorers?league=39&season=2022`,
 		requestOptions
 	);
-	dataSDPL = await r.json();
+	dataTSPL = await r.json();
 };
-const fetchDataSDBL = async () => {
+const fetchDataTSCL = async () => {
 	const r = await fetch(
-		`https://v3.football.api-sports.io/standings?league=78&season=2022`,
+		`https://v3.football.api-sports.io/players/topscorers?league=2&season=2022`,
 		requestOptions
 	);
-	dataSDBL = await r.json();
+	dataTSCL = await r.json();
 };
-const fetchDataSDLL = async () => {
+const fetchDataTSBL = async () => {
 	const r = await fetch(
-		`https://v3.football.api-sports.io/standings?league=140&season=2022`,
+		`https://v3.football.api-sports.io/players/topscorers?league=78&season=2022`,
 		requestOptions
 	);
-	dataSDLL = await r.json();
+	dataTSBL = await r.json();
 };
-fetchDataSDPL();
-fetchDataSDLL();
-fetchDataSDBL();
-app.get("standings/39", async (req, res) => {
-	res.json(dataSDPL);
+const fetchDataTSLL = async () => {
+	const r = await fetch(
+		`https://v3.football.api-sports.io/players/topscorers?league=140&season=2022`,
+		requestOptions
+	);
+	dataTSLL = await r.json();
+};
+fetchDataTSPL();
+fetchDataTSCL();
+fetchDataTSBL();
+fetchDataTSLL();
+app.get("topsc/39", async (req, res) => {
+	res.json(dataTSPL);
 });
-app.get("standings/140", async (req, res) => {
-	res.json(dataSDLL);
+app.get("topsc/2", async (req, res) => {
+	res.json(dataTSCL);
 });
-app.get("standings/78", async (req, res) => {
-	res.json(dataSDBL);
+app.get("topsc/140", async (req, res) => {
+	res.json(dataTSLL);
 });
+app.get("topsc/78", async (req, res) => {
+	res.json(dataTSBL);
+});
+
